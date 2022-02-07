@@ -1,0 +1,42 @@
+const express = require('express');
+const mysql = require('mysql');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+
+const router = express.Router();
+
+router.use(bodyParser.urlencoded({ extended:true }));
+router.use(cookieParser());
+
+const connection = mysql.createConnection({
+    host:'localhost',
+    user:'yayano',
+    password:'0109hiro',
+    database:'db0',
+    charset : 'utf8mb4'
+});
+
+connection.connect((err)=>{
+    if(err){
+	console.log('error connecting: '+err.stack);
+	return;
+    }
+    console.log('mysql_my_page success');
+});
+
+router.get('/',(req,res)=>{
+    connection.query(
+	"select * from shift_users where id="+req.cookies.name_id+" and token='"+req.cookies.token+"';",
+	(error,results)=>{
+	    if(results.length==1){
+		const name=results[0].name;
+		res.render('my_page',{user_name:name});
+	    }
+	    else{
+		res.render('no_token');
+	    }
+	}
+    );
+});
+
+module.exports = router;

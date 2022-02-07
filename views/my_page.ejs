@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>
+      マイページ
+    </title>
+  </head>
+  
+  <body>
+    <h1>ようこそ、<%= user_name %>さん</h1>
+    <p>
+      <button type="button" onclick="location.href='http://localhost:3000/show_shift'">
+	シフト一覧
+      </button>
+    </p>
+    
+      <form action="http://localhost:3000/post_shift" method="post">
+	<label>
+	  年月日
+	  <input type="date" name="date1">
+	</label>
+	<p>
+	  <label>
+	    出社時刻
+	    <input type="time" name="in_time" id="time1">
+	  </label>
+	</p>
+	<p>
+	  <label>
+	    退社時刻
+	    <input type="time" name="out_time" id="time2">
+	  </label>
+	</p>
+	<label>
+	  コメント
+	  <input type="text" name="comment">
+	</label>
+	<input type="submit" value="シフト登録">
+      </form>
+    
+      <form action="http://localhost:3000/delete_shift" method="post">
+	<label>
+	  年月日
+	  <input type="date" name="date2" required>
+	</label>
+	<input type="submit" value="シフト削除">
+      </form>
+    
+    <button type="button" onclick="location.href='http://localhost:3000/logout'">
+      ログアウト
+    </button>
+  </body>
+</html>
